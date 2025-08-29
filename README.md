@@ -1,1 +1,97 @@
-# ar_downscaling
+# Beyond Statistical Similarity: Rethinking Evaluation in Climate AI Through Extreme Weather Forecasting
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![arXiv](https://img.shields.io/badge/arXiv-coming%20soon-B31B1B.svg)](https://arxiv.org/)
+
+---
+
+This repository contains the official code for the research paper:  
+**Beyond Statistical Similarity: Rethinking Evaluation in Climate AI Through Extreme Weather Forecasting**
+
+The work introduces a novel deep learning pipeline to deliver operationally skillful forecasts of extreme convective weather in the **Bay of Bengal region**. It highlights a critical flaw in standard evaluation metrics (the *Statistical Similarity Trap*) and reveals a new meteorological insight, the *IVT Paradox*.
+
+📄 *Paper: Link to arXiv preprint will be added upon submission.*
+
+---
+
+## 📌 Project Overview
+This project is organized as a series of **Google Colab notebooks** (`.ipynb` files). Each notebook is an independent, runnable component of the research pipeline, designed for maximum accessibility and reproducibility. The workflow covers the entire process from **data processing** to **model training and evaluation**.
+
+---
+## 🚀 Repository Structure & Workflow
+This project is organized as a series of scripts and Google Colab notebooks that reflect the complete research lifecycle.
+
+*1. Data Acquisition and Preprocessing* `(/scripts/ar_filter, /scripts/download_data, /scripts/preprocess_data)`
+The initial pipeline is a set of Python scripts that automate the entire data curation process:
+
+`filter_ar_files.py`: Identifies relevant Atmospheric River (AR) events from the global catalog.
+
+`download_*.py`: Downloads the corresponding ERA5 and Himawari satellite data.
+
+`preprocess_*.py`: Creates the manifest, regrids all variables, normalizes the data, and creates the final train/validation/test splits.
+
+*2. Model Training and Evaluation* (`/scripts/training`)
+This directory contains the core experimental notebooks, organized by research question:
+
+`/architecture`: The `Architecture_Study.ipynb` notebook trains and evaluates the four different deep learning architectures (U-Net, ResNet U-Net, etc.).
+
+`/ablation`: The `Ablation_Study.ipynb` notebook runs the systematic 21-configuration study to test the importance of different meteorological variables.
+
+`/mos_baseline`, `/rf_baseline`, `/svr_baseline`: Notebooks for training and evaluating the three traditional machine learning baselines to demonstrate the "Statistical Similarity Trap."
+
+`/decoupled`: The `Forecast and Diagnose.ipyn`b notebook contains the final, two-stage pipeline, combining the Stage 1 forecast engine and the Stage 2 diagnostic engine.
+
+*3. Results and Figure*s (`/visuals`)
+The /visuals directory contains the final output figures used in the paper.
+
+
+---
+
+## 🚀 How to Run
+
+This project is designed to run entirely within **Google Colab**, requiring **no local dependency installation**.
+
+### 1. Data Setup
+The complete dataset is available upon request. Once obtained, upload it to Google Drive using the following structure:
+```
+📂 My Drive/
+└── 📂 research/
+    └── 📂 beyond_statistical_similarity/
+        └── 📂 data/
+            ├── 📂 train/
+            ├── 📂 val/
+            └── 📂 test/
+```
+
+### 2. Running the Notebooks
+1. Open any `.ipynb` notebook from this repository in Google Colab.  
+2. Run the first cell to mount your Google Drive:
+
+   ```python
+   from google.colab import drive
+   drive.mount('/content/drive')
+   ```
+3. Update the data_path variable at the top of the notebook, e.g.:
+
+```python
+data_path = "/content/drive/My Drive/research/beyond_statistical_similarity/data/"
+```
+
+4. Run all cells sequentially (Runtime > Run all).
+All required Python libraries are automatically installed inside the notebooks.
+
+## Pre-trained Models
+The final trained model weights for the **Stage 1** and **Stage 2** networks are too large to host on GitHub but are available upon request.  
+
+📩 Contact: **tanveer.munim@outlook.com** for a download link.  
+
+Alternatively, you can retrain the models from scratch using:  
+- `ablation/Ablation_Study.ipynb`  
+- `decoupled/Forecast and Diagnose.ipynb`
+
+This will fully reproduce the paper’s results.
+
+## 📜 Citation
+If you find this work useful, please consider citing our paper. A BibTeX entry will be provided here once the paper is available on arXiv.
+
