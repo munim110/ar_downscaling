@@ -72,11 +72,12 @@ The complete dataset is available upon request. Once obtained, upload it to Goog
    from google.colab import drive
    drive.mount('/content/drive')
    ```
-3. Update the data_path variable at the top of the notebook, e.g.:
+3. Update the PROJECT_PATH variable at the top of the notebook, e.g.:
 
 ```python
-data_path = "/content/drive/My Drive/research/beyond_statistical_similarity/data/"
+PROJECT_PATH = Path('/content/drive/My Drive/AR_Downscaling')
 ```
+Also make sure the other similar paths are exactly what you want them to be.
 
 4. Run all cells sequentially (Runtime > Run all).
 All required Python libraries are automatically installed inside the notebooks.
