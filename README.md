@@ -66,7 +66,7 @@ The complete dataset is available upon request. Once obtained, upload it to Goog
 
 ### 2. Running the Notebooks
 1. Open any `.ipynb` notebook from this repository in Google Colab.  
-2. Run the first cell to mount your Google Drive:
+2. Run the following cell to mount your Google Drive:
 
    ```python
    from google.colab import drive
