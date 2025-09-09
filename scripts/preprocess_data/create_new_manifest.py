@@ -5,16 +5,16 @@ from tqdm import tqdm
 
 # --- Configuration ---
 # Ensure these paths are correct for your environment
-ERA5_DIR = Path('./era5_data_new') # Updated to match the new download script
+ERA5_DIR = Path('./era5_data_new')
 SATELLITE_DIR = Path('./satellite_data')
-OUTPUT_MANIFEST = 'data_manifest_combined.csv' # New output filename
+OUTPUT_MANIFEST = 'data_manifest_combined.csv'
 
 # --- Script ---
 print("Scanning data directories for combined ERA5 files...")
 
-# --- 1. Scan ERA5 directory for the new combined files ---
+# --- Scan ERA5 directory for the new combined files ---
 era5_files = {}
-# --- MODIFICATION: The script now looks for the '_era5_combined.nc' files ---
+# --- The script looks for the '_era5_combined.nc' files ---
 for f in ERA5_DIR.glob('*_era5_combined.nc'):
     # Filename format is still: YYYY-MM_...
     match = re.search(r'(\d{4})-(\d{2})', f.name)
@@ -27,7 +27,7 @@ if not era5_files:
 else:
     print(f"✅ Found {len(era5_files)} combined ERA5 NetCDF files.")
 
-    # --- 2. Scan Satellite directory (This part is unchanged) ---
+    # --- Scan Satellite directory ---
     satellite_pairs = {}
     print("Scanning satellite data directory...")
     for f in tqdm(SATELLITE_DIR.glob('*.nc'), desc="Scanning satellite files"):
@@ -43,7 +43,7 @@ else:
     else:
         print(f"✅ Found {len(satellite_pairs)} satellite files.")
 
-        # --- 3. Create the manifest by matching satellite timestamps to monthly ERA5 files ---
+        # --- Create the manifest by matching satellite timestamps to monthly ERA5 files ---
         print("Pairing satellite and ERA5 data...")
         matched_data = []
         for ts, sat_file in tqdm(satellite_pairs.items(), desc="Creating manifest"):

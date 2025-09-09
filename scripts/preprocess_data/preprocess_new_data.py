@@ -36,18 +36,16 @@ def process_pair(row_tuple):
         # Open the NetCDF files
         with xr.open_dataset(era5_path) as ds_era5, xr.open_dataset(satellite_path) as ds_sat:
             
-            # --- 1. Select the correct timestep from the monthly ERA5 file ---
+            # --- Select the correct timestep from the monthly ERA5 file ---
             # FIX: The ncdump output shows the time dimension is named 'valid_time'.
             ds_era5_ts = ds_era5.sel(valid_time=timestamp, method='nearest')
 
-            # --- 2. Prepare all input variables ---
-            # a) Calculate IVT magnitude
-            # FIX: The ncdump output shows the IVT components are named 'viwve' and 'viwvn'.
+            # --- Prepare all input variables ---
+            # Calculate IVT magnitude
             ivt = np.sqrt(ds_era5_ts['viwve']**2 + ds_era5_ts['viwvn']**2)
             ivt.name = 'ivt'
             
-            # b) Select other variables at their specific pressure levels
-            # FIX: The ncdump output shows the pressure dimension is named 'pressure_level'.
+            # Select other variables at their specific pressure levels
             # The variable short names are 't', 'r', and 'w'.
             t_500 = ds_era5_ts['t'].sel(pressure_level=500)
             t_850 = ds_era5_ts['t'].sel(pressure_level=850)
@@ -56,7 +54,7 @@ def process_pair(row_tuple):
             
             variables_to_process = [ivt, t_500, t_850, rh_700, w_500]
             
-            # --- 3. Regrid all variables to match the satellite grid ---
+            # --- Regrid all variables to match the satellite grid ---
             regridded_vars = []
             for var in variables_to_process:
                 regridded_var = var.interp(
@@ -66,10 +64,10 @@ def process_pair(row_tuple):
                 )
                 regridded_vars.append(regridded_var.values)
 
-            # --- 4. Stack into a single multi-channel NumPy array ---
+            # --- Stack into a single multi-channel NumPy array ---
             multi_channel_predictor = np.stack(regridded_vars, axis=0).astype(np.float32)
             
-            # --- 5. Prepare the target variable ---
+            # --- Prepare the target variable ---
             target_tbb = ds_sat['tbb'].values.astype(np.float32)
 
             # --- 6. Save the final processed arrays as .npy files ---

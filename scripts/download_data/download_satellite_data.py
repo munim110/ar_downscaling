@@ -13,7 +13,10 @@ from pathlib import Path
 H8_MULTI_SEGMENT_START_DATE = pd.to_datetime('2019-12-09T18:10:00')
 H9_START_DATE = pd.to_datetime('2022-12-01')
 
-HISD2NETCDF_EXE = 'hisd2netcdf/hisd2netcdf'
+HISD2NETCDF_EXE = 'hisd2netcdf/hisd2netcdf' 
+# Available at: https://atmos.washington.edu/~brodzik/public/miked/precip/Himawari/hisd2netcdf/
+# Make sure to follow the installation instructions there.
+
 DATE_FILE = 'ar_dates_bangladesh_2015-2023.txt'
 BASE_OUTPUT_DIR = Path('himawari')
 BAND = 8 # Water Vapor
@@ -38,7 +41,7 @@ def download_single_segment(url: str, output_path: Path):
 
 # --- UNIFIED WORKFLOW FUNCTION ---
 def process_timestamp(dt: datetime):
-    # 1. Determine satellite, segment count, and naming conventions based on the date
+    # Determine satellite, segment count, and naming conventions based on the date
     if dt < H8_MULTI_SEGMENT_START_DATE:
         satellite, sat_prefix, bucket = ("himawari8", "HS_H08", "noaa-himawari8")
         num_segments, seg_format = (1, "{s:02d}01")
@@ -51,7 +54,7 @@ def process_timestamp(dt: datetime):
     
     print(f"\n--- Processing {satellite.upper()} ({num_segments} segments) for {dt} ---")
     
-    # 2. Set up paths
+    # Set up paths
     final_nc_path = BASE_OUTPUT_DIR / f"{sat_prefix}_{dt.strftime('%Y%m%d_%H%M')}_B{BAND:02d}_BANGLADESH.nc"
     if final_nc_path.exists():
         print(f"Final file exists, skipping: {final_nc_path.name}")
@@ -61,7 +64,7 @@ def process_timestamp(dt: datetime):
     temp_dat_dir.mkdir(parents=True, exist_ok=True)
     base_url = f"https://{bucket}.s3.amazonaws.com/AHI-L1b-FLDK/{dt.strftime('%Y/%m/%d/%H%M')}"
 
-    # 3. Download all segments
+    # Download all segments
     print(f"Downloading {num_segments} segment(s)...")
     input_files_to_convert = []
     with ThreadPoolExecutor(max_workers=5) as executor:
@@ -78,7 +81,7 @@ def process_timestamp(dt: datetime):
         print(f"ERROR: Failed to download all segments for {dt}. Skipping.", file=sys.stderr)
         return
 
-    # 4. Convert segments to a single subsetted NetCDF
+    # Convert segments to a single subsetted NetCDF
     print(f"Converting segments for {dt}...")
     width = int((LON_RIGHT - LON_LEFT) / RESOLUTION_DEG) + 1
     height = int((LAT_TOP - LAT_BOTTOM) / RESOLUTION_DEG) + 1
@@ -91,7 +94,7 @@ def process_timestamp(dt: datetime):
     else:
         print(f"SUCCESS: Created {final_nc_path.name}")
 
-    # 5. Clean up temporary files
+    # Clean up temporary files
     print("Cleaning up temporary segment files...")
     for f in input_files_to_convert:
         try: f.unlink()

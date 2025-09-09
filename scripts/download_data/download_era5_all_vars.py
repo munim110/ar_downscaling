@@ -34,7 +34,7 @@ def process_month(year, month, days):
         return f"SKIPPED: {os.path.basename(target_file_combined)} already exists."
 
     try:
-        # --- Step A: Download IVT Data (Single Level) ---
+        # --- Download IVT Data (Single Level) ---
         if not os.path.exists(temp_file_ivt):
             c.retrieve(
                 'reanalysis-era5-single-levels',
@@ -46,7 +46,7 @@ def process_month(year, month, days):
                 },
                 temp_file_ivt)
         
-        # --- Step B: Download New Physical Variables (Pressure Levels) ---
+        # --- Download New Physical Variables (Pressure Levels) ---
         if not os.path.exists(temp_file_pl):
             c.retrieve(
                 'reanalysis-era5-pressure-levels',
@@ -59,7 +59,7 @@ def process_month(year, month, days):
                 },
                 temp_file_pl)
 
-        # --- Step C: Merge the two downloaded files ---
+        # --- Merge the two downloaded files ---
         with xr.open_dataset(temp_file_ivt) as ds_ivt, xr.open_dataset(temp_file_pl) as ds_pl:
             merged_ds = xr.merge([ds_ivt, ds_pl])
             merged_ds.to_netcdf(target_file_combined)
@@ -78,7 +78,7 @@ def process_month(year, month, days):
 
 # --- Main Script ---
 if __name__ == "__main__":
-    # 1. Read and process the event dates
+    # Read and process the event dates
     print(f"Reading event dates from {DATE_FILE}...")
     event_dates = pd.to_datetime(pd.read_csv(DATE_FILE, header=None)[0])
 
@@ -94,7 +94,7 @@ if __name__ == "__main__":
             unique_days = sorted(list(set(days)))
             tasks.append((year, month, unique_days))
 
-    # 2. Use ProcessPoolExecutor to run tasks in parallel
+    # Use ProcessPoolExecutor to run tasks in parallel
     print(f"Starting parallel download and merge process using up to {MAX_WORKERS} workers...")
     
     with ProcessPoolExecutor(max_workers=MAX_WORKERS) as executor:

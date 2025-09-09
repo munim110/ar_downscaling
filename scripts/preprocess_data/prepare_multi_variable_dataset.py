@@ -22,13 +22,13 @@ TEST_SIZE = 0.10 # 10% for testing
 
 # --- Main Script ---
 if __name__ == "__main__":
-    # 1. Create final directories
+    # Create final directories
     FINAL_DATA_DIR.mkdir(exist_ok=True)
     (FINAL_DATA_DIR / 'train').mkdir(exist_ok=True)
     (FINAL_DATA_DIR / 'val').mkdir(exist_ok=True)
     (FINAL_DATA_DIR / 'test').mkdir(exist_ok=True)
 
-    # 2. Load manifest and create chronological splits
+    # Load manifest and create chronological splits
     manifest_df = pd.read_csv(MANIFEST_FILE, index_col='timestamp', parse_dates=True).sort_index()
     
     n_samples = len(manifest_df)
@@ -44,7 +44,7 @@ if __name__ == "__main__":
     print(f"  Validation samples: {len(val_manifest)}")
     print(f"  Test samples:       {len(test_manifest)}")
 
-    # 3. Calculate per-channel normalization statistics ONLY from the training set
+    # Calculate per-channel normalization statistics ONLY from the training set
     print("\nCalculating per-channel normalization statistics from the training set...")
     
     # Use Welford's algorithm for stable online calculation of mean and variance
@@ -99,7 +99,7 @@ if __name__ == "__main__":
         print(f"  - {var}: Mean={stats['predictor_mean'][i]:.4f}, Std={stats['predictor_std'][i]:.4f}")
     print(f"  - Target TBB: Mean={stats['target_mean']:.4f}, Std={stats['target_std']:.4f}")
 
-    # 4. Copy files to their final train/val/test directories
+    # Copy files to their final train/val/test directories
     print("\nCopying files to train/val/test directories...")
     
     sets_to_process = {

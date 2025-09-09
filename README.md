@@ -1,4 +1,4 @@
-# Beyond Statistical Similarity: Rethinking Evaluation in Climate AI Through Extreme Weather Forecasting
+# Breaking the Statistical Similarity Trap in Extreme Convection Detection
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -7,9 +7,9 @@
 ---
 
 This repository contains the official code for the research paper:  
-**Beyond Statistical Similarity: Rethinking Evaluation in Climate AI Through Extreme Weather Forecasting**
+**Breaking the Statistical Similarity Trap in Extreme Convection Detection**
 
-The work introduces a novel deep learning pipeline to deliver operationally skillful forecasts of extreme convective weather in the **Bay of Bengal region**. It highlights a critical flaw in standard evaluation metrics (the *Statistical Similarity Trap*) and reveals a new meteorological insight, the *IVT Paradox*.
+The work introduces a novel deep learning architecture to deliver operationally skillful forecasts of extreme convective weather in the **Bay of Bengal region**. It highlights a critical flaw in standard evaluation metrics (the *Statistical Similarity Trap*) and reveals a new meteorological insight, the *IVT Paradox*.
 
 📄 *Paper: Link to arXiv preprint will be added upon submission.*
 
@@ -22,14 +22,16 @@ This project is organized as a series of **Google Colab notebooks** (`.ipynb` fi
 ## 🚀 Repository Structure & Workflow
 This project is organized as a series of scripts and Google Colab notebooks that reflect the complete research lifecycle.
 
-*1. Data Acquisition and Preprocessing* `(/scripts/ar_filter, /scripts/download_data, /scripts/preprocess_data)`
+*1. Data Acquisition and Preprocessing* `(/scripts/ar_filter, /scripts/download_data, /scripts/preprocess_new_data, /scripts/prepare_multi_variable_dataset)`
 The initial pipeline is a set of Python scripts that automate the entire data curation process:
 
 `filter_ar_files.py`: Identifies relevant Atmospheric River (AR) events from the global catalog.
 
 `download_*.py`: Downloads the corresponding ERA5 and Himawari satellite data.
 
-`preprocess_*.py`: Creates the manifest, regrids all variables, normalizes the data, and creates the final train/validation/test splits.
+`preprocess_*.py`: Creates the manifest, regrids all variables, normalizes the data
+
+`prepare_*.py`: Splits the dataset into training, validation, and test sets, and computes normalization statistics.
 
 *2. Model Training and Evaluation* (`/scripts/training`)
 This directory contains the core experimental notebooks, organized by research question:
@@ -40,7 +42,9 @@ This directory contains the core experimental notebooks, organized by research q
 
 `/mos_baseline`, `/rf_baseline`, `/svr_baseline`: Notebooks for training and evaluating the three traditional machine learning baselines to demonstrate the "Statistical Similarity Trap."
 
-`/decoupled`: The `Forecast and Diagnose.ipyn`b notebook contains the final, two-stage pipeline, combining the Stage 1 forecast engine and the Stage 2 diagnostic engine.
+`/unet_final`: The `UNet_Training.ipynb` notebook contains the final U-Net training with smart sampling and weighted loss.
+
+`/dart`: The `HiPEEF_Training.ipynb` notebook contains the final, two-stage pipeline, combining the Stage 1 forecast engine and the Stage 2 diagnostic engine.
 
 *3. Results and Figure*s (`/visuals`)
 The /visuals directory contains the final output figures used in the paper.
@@ -57,7 +61,7 @@ The complete dataset is available upon request. Once obtained, upload it to Goog
 ```
 📂 My Drive/
 └── 📂 research/
-    └── 📂 beyond_statistical_similarity/
+    └── 📂 statistical_similarity/
         └── 📂 data/
             ├── 📂 train/
             ├── 📂 val/
@@ -83,15 +87,16 @@ Also make sure the other similar paths are exactly what you want them to be.
 All required Python libraries are automatically installed inside the notebooks.
 
 ## Pre-trained Models
-The final trained model weights for the **Stage 1** and **Stage 2** networks are too large to host on GitHub but are available upon request.  
+The final trained model weights are too large to host on GitHub but are available upon request.  
 
 📩 Contact: **tanveer.munim@outlook.com** for a download link.  
 
-Alternatively, you can retrain the models from scratch using:  
-- `ablation/Ablation_Study.ipynb`  
-- `decoupled/Forecast and Diagnose.ipynb`
+Alternatively, you can retrain the model from scratch using:    
+- `dart/HiPEEF_Training.ipynb`
 
 This will fully reproduce the paper’s results.
+
+Note: DART was originally named HiPEEF (Hierarchical Prediction of Extreme Events with Forecasts).
 
 ## 📜 Citation
 If you find this work useful, please consider citing our paper. A BibTeX entry will be provided here once the paper is available on arXiv.
