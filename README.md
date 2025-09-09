@@ -16,7 +16,7 @@ The work introduces a novel deep learning architecture to deliver operationally 
 ---
 
 ## 📌 Project Overview
-This project is organized as a series of **Google Colab notebooks** (`.ipynb` files). Each notebook is an independent, runnable component of the research pipeline, designed for maximum accessibility and reproducibility. The workflow covers the entire process from **data processing** to **model training and evaluation**.
+This project is organized as a series of **Python Scripts** (`.py` files) and **Google Colab notebooks** (`.ipynb` files). Each notebook is an independent, runnable component of the research pipeline, designed for maximum accessibility and reproducibility. The workflow covers the entire process from **data processing** to **model training and evaluation**.
 
 ---
 ## 🚀 Repository Structure & Workflow
