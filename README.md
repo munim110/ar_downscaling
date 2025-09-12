@@ -2,7 +2,7 @@
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![arXiv](https://img.shields.io/badge/arXiv-coming%20soon-B31B1B.svg)](https://arxiv.org/)
+[![arXiv](https://img.shields.io/badge/arXiv-2509.09195-B31B1B.svg)](https://arxiv.org/abs/2509.09195)
 
 ---
 
@@ -99,5 +99,18 @@ This will fully reproduce the paper’s results.
 Note: DART was originally named HiPEEF (Hierarchical Prediction of Extreme Events with Forecasts).
 
 ## 📜 Citation
-If you find this work useful, please consider citing our paper. A BibTeX entry will be provided here once the paper is available on arXiv.
+If you find this work useful, please consider citing our paper.
+**Paper:** [https://arxiv.org/abs/2509.09195](https://arxiv.org/abs/2509.09195)
+
+```bibtex
+@misc{munim2025breakingstatisticalsimilaritytrap,
+      title={Breaking the Statistical Similarity Trap in Extreme Convection Detection}, 
+      author={Md Tanveer Hossain Munim},
+      year={2025},
+      eprint={2509.09195},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={[https://arxiv.org/abs/2509.09195](https://arxiv.org/abs/2509.09195)}, 
+}
+```
 
