@@ -11,7 +11,7 @@ This repository contains the official code for the research paper:
 
 The work introduces a novel deep learning architecture to deliver operationally skillful forecasts of extreme convective weather in the **Bay of Bengal region**. It highlights a critical flaw in standard evaluation metrics (the *Statistical Similarity Trap*) and reveals a new meteorological insight, the *IVT Paradox*.
 
-📄 *Paper: Link to arXiv preprint will be added upon submission.*
+📄 *Paper: !https://arxiv.org/abs/2509.09195.
 
 ---
 
