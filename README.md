@@ -99,7 +99,7 @@ This will fully reproduce the paper’s results.
 Note: DART was originally named HiPEEF (Hierarchical Prediction of Extreme Events with Forecasts).
 
 ## 📜 Citation
-If you find this work useful, please consider citing our paper.
+If you find this work useful, please consider citing my paper.
 **Paper:** [https://arxiv.org/abs/2509.09195](https://arxiv.org/abs/2509.09195)
 
 ```bibtex
